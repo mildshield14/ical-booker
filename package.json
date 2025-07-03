@@ -2,14 +2,14 @@
   "name": "@mildshield14/ical-booker",
   "version": "1.0.0",
   "description": "A lightweight, modern CalDAV client for Node.js - discover calendars, check availability, and create bookings",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/lib/index.js",
+  "module": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/lib/index.js",
+      "types": "./dist/lib/index.d.ts"
     }
   },
   "scripts": {
@@ -58,11 +58,11 @@
   },
   "homepage": "https://github.com/mildshield14/ical-booker#readme",
   "dependencies": {
-    "node-fetch": "^3",
-    "node-ical": "^0.16",
-    "rrule": "^2",
+    "dotenv": "^17",
     "ics": "^3.8",
-    "dotenv": "^17"
+    "node-fetch": "^3",
+    "node-ical": "^0.20.1",
+    "rrule": "^2"
   },
   "engines": {
     "node": ">=18"
@@ -75,7 +75,7 @@
     "eslint": "^8.0.0",
     "prettier": "^3.0.0",
     "typescript": "^5.0.0",
-    "vercel": "^34"
+    "vercel": "^32.0.1"
   },
   "peerDependencies": {
     "typescript": ">=4.5.0"
