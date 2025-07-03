@@ -8,6 +8,7 @@
   "exports": {
     ".": {
       "import": "./dist/lib/index.js",
+      "require": "./dist/lib/index.js",
       "types": "./dist/lib/index.d.ts"
     }
   },
@@ -73,8 +74,7 @@
     "c8": "^8.0.0",
     "eslint": "^8.0.0",
     "prettier": "^3.0.0",
-    "typescript": "^5.0.0",
-    "vercel": "^32.0.1"
+    "typescript": "^5.0.0"
   },
   "peerDependencies": {
     "typescript": ">=4.5.0"
