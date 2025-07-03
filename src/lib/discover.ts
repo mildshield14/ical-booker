@@ -3,29 +3,26 @@ import fetch from 'node-fetch';
 import type { CalDAVCreds, Calendar } from './types';
 
 /* small helper to build PROPFIND requests */
-const xmlReq =
-    (
-        auth: string,
-        depth = '0',
-    ): ((body?: string) => {
-        method: string;
-        headers: {
-            Authorization: string;
-            'Content-Type': string;
-            Depth: string;
-        };
-        body: string;
-    }) =>
-    (body = '') => ({
-        method: 'PROPFIND',
-        headers: {
-            Authorization: auth,
-            'Content-Type': 'application/xml',
-            Depth: depth,
-        },
-        body,
-    });
-
+const xmlReq = (
+    auth: string,
+    depth = '0',
+): ((body?: string) => {
+    method: string;
+    headers: {
+        Authorization: string;
+        'Content-Type': string;
+        Depth: string;
+    };
+    body: string;
+}) => (body = '') => ({
+    method: 'PROPFIND',
+    headers: {
+        Authorization: auth,
+        'Content-Type': 'application/xml',
+        Depth: depth,
+    },
+    body,
+});
 /**
  * Discover all writable calendar collections for the given CalDAV account.
  * Works with iCloud (partition hosts p01-p99), Google (once authenticated),
