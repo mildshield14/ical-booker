@@ -1,6 +1,6 @@
 {
   "name": "@mildshield14/ical-booker",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "A lightweight, modern CalDAV client for Node.js - discover calendars, check availability, and create bookings",
   "main": "./dist/lib/index.js",
   "types": "./dist/lib/index.d.ts",
