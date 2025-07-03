@@ -13,8 +13,8 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "dev": "tsc --watch",
+    "build": "tsc -p tsconfig.json && tsc-alias",
+    "dev": "tsc --watch & tsc-alias --watch",
     "test": "node --test",
     "test:coverage": "c8 node --test",
     "lint": "eslint ./src/**/*.ts",
@@ -74,6 +74,7 @@
     "c8": "^8.0.0",
     "eslint": "^8.0.0",
     "prettier": "^3.0.0",
+    "tsc-alias": "^1.8.16",
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
