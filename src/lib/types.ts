@@ -236,3 +236,15 @@ export interface NewEventInput {
     title: string;
     attendee?: string; // optional
 }
+
+export interface EmailConfig {
+    serviceId : string;
+    templateId: string;
+    publicKey : string;
+    privateKey: string;
+    fromName  : string;
+    fromEmail : string;
+    adminEmail: string;
+    /** Optional: value for the HTTP `Origin` header (defaults to '*') */
+    origin?: string;
+}
