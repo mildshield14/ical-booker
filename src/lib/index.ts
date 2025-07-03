@@ -3,6 +3,7 @@ export * from './types';
 export { discoverCalendars } from './discover.js';
 export { getBusyEvents } from './busy.js';
 export { createBooking } from './book.js';
+export { sendBookingEmails} from './email.js'
 
 /**
  * @mildshield14/ical-booker
@@ -31,6 +32,8 @@ export type {
     BatchResult,
     TimeZoneInfo,
     RecurrenceRule,
+    EmailConfig,
+    NewEventInput,
 } from './types';
 
 // Version information
