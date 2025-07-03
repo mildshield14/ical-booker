@@ -185,7 +185,7 @@ export interface BatchResult<T> {
     success: T[];
     /** Failed items with errors */
     failed: Array<{
-        item: any;
+        item: T;
         error: CalDAVError;
     }>;
     /** Total number of items processed */
@@ -231,8 +231,8 @@ export interface RecurrenceRule {
 }
 
 export interface NewEventInput {
-    start: string;           // ISO, UTC (or local – caller’s job)
+    start: string; // ISO, UTC (or local – caller’s job)
     end: string;
     title: string;
-    attendee?: string;       // optional
+    attendee?: string; // optional
 }

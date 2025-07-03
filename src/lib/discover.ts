@@ -4,16 +4,27 @@ import type { CalDAVCreds, Calendar } from './types';
 
 /* small helper to build PROPFIND requests */
 const xmlReq =
-    (auth: string, depth = '0') =>
-        (body = '') => ({
-            method: 'PROPFIND',
-            headers: {
-                Authorization: auth,
-                'Content-Type': 'application/xml',
-                Depth: depth,
-            },
-            body,
-        });
+    (
+        auth: string,
+        depth = '0',
+    ): ((body?: string) => {
+        method: string;
+        headers: {
+            Authorization: string;
+            'Content-Type': string;
+            Depth: string;
+        };
+        body: string;
+    }) =>
+    (body = '') => ({
+        method: 'PROPFIND',
+        headers: {
+            Authorization: auth,
+            'Content-Type': 'application/xml',
+            Depth: depth,
+        },
+        body,
+    });
 
 /**
  * Discover all writable calendar collections for the given CalDAV account.
@@ -21,26 +32,24 @@ const xmlReq =
  * Fastmail, and most generic servers.
  */
 export async function discoverCalendars({
-                                            principal, // e.g. https://p55-caldav.icloud.com
-                                            username,  // full address
-                                            password,  // app-specific pwd
-                                        }: CalDAVCreds): Promise<Calendar[]> {
+    principal, // e.g. https://p55-caldav.icloud.com
+    username, // full address
+    password, // app-specific pwd
+}: CalDAVCreds): Promise<Calendar[]> {
     /* ------------------------------------------------------------------ */
     /* ① find the principal URL (207 multistatus with <current-user-principal>) */
     /* ------------------------------------------------------------------ */
-    const AUTH = 'Basic ' + Buffer.from(`${username}:${password}`).toString('base64');
+    const AUTH = `Basic ${Buffer.from(`${username}:${password}`).toString('base64')}`;
     const propfind = xmlReq(AUTH);
 
     const principalResp = await fetch(
         principal,
-        propfind(`<propfind xmlns="DAV:"><prop><current-user-principal/></prop></propfind>`),
+        propfind('<propfind xmlns="DAV:"><prop><current-user-principal/></prop></propfind>'),
     );
     const principalXML = await principalResp.text();
     console.debug('① status', principalResp.status, '\n', principalXML.slice(0, 400));
 
-    const princHref = principalXML.match(
-        /<current-user-principal[^>]*>\s*<href[^>]*>([^<]+)</i,
-    )?.[1];
+    const princHref = principalXML.match(/<current-user-principal[^>]*>\s*<href[^>]*>([^<]+)</i)?.[1];
     if (!princHref) throw new Error('Could not discover principal URL');
 
     /* ------------------------------------------------------------------ */
@@ -51,14 +60,12 @@ export async function discoverCalendars({
     // ②-a ask the server explicitly
     const homeResp = await fetch(
         new URL(princHref, principal).toString(),
-        propfind(`<propfind xmlns="DAV:"><prop><calendar-home-set/></prop></propfind>`),
+        propfind('<propfind xmlns="DAV:"><prop><calendar-home-set/></prop></propfind>'),
     );
     const homeXML = await homeResp.text();
     console.debug('② status', homeResp.status, '\n', homeXML.slice(0, 400));
 
-    const homeHref = homeXML.match(
-        /<calendar-home-set[^>]*>\s*<href[^>]*>([^<]+)</i,
-    )?.[1];
+    const homeHref = homeXML.match(/<calendar-home-set[^>]*>\s*<href[^>]*>([^<]+)</i)?.[1];
     if (homeHref) {
         homeURL = new URL(homeHref, principal).toString();
     }
@@ -88,17 +95,17 @@ export async function discoverCalendars({
                     headers: {
                         Authorization: AUTH,
                         Depth: '1',
-                        'Content-Type': 'application/xml'
+                        'Content-Type': 'application/xml',
                     },
                 });
                 console.log(`📍 Trying ${url}: ${r.status}`);
                 if (r.status >= 200 && r.status < 300) {
-                    homeURL = url.endsWith('/') ? url : url + '/';
+                    homeURL = url.endsWith('/') ? url : `${url}/`;
                     console.log('✅ Found working calendar-home-set:', homeURL);
                     break;
                 }
-            } catch (error: any) {
-                console.log(`❌ Failed to probe ${url}:`, error.message);
+            } catch (error: unknown) {
+                console.log(`❌ Failed to probe ${url}:`, error instanceof Error ? error.message : error);
             }
         }
 
@@ -113,7 +120,10 @@ export async function discoverCalendars({
     /* ------------------------------------------------------------------ */
     const listResp = await fetch(
         homeURL,
-        xmlReq(AUTH, '1')(
+        xmlReq(
+            AUTH,
+            '1',
+        )(
             `<propfind xmlns="DAV:" xmlns:C="urn:ietf:params:xml:ns:caldav">
          <prop><displayname/><resourcetype/></prop>
        </propfind>`,
@@ -128,19 +138,20 @@ export async function discoverCalendars({
     }
 
     /* pull every <response><href>… and its <displayname> */
-    const matches = listXML.matchAll(
-        /<response[^>]*>[\s\S]*?<href[^>]*>([^<]+)<[\s\S]*?<displayname[^>]*>([^<]*)</gi,
-    );
+    const matches = listXML.matchAll(/<response[^>]*>[\s\S]*?<href[^>]*>([^<]+)<[\s\S]*?<displayname[^>]*>([^<]*)</gi);
 
     const calendars: Calendar[] = [];
     for (const [, href, name] of matches) {
-        if (!name?.trim() || !href || !/\/[A-Fa-f0-9\-]+\/$/.test(href)) continue; // skip root/inbox
+        if (!name?.trim() || !href || !/\/[A-Fa-f0-9-]+\/$/.test(href)) continue; // skip root/inbox
         calendars.push({
             displayName: name.trim(),
             url: new URL(href, principal).toString(),
         });
     }
 
-    console.log(`📅 Found ${calendars.length} calendars:`, calendars.map(c => c.displayName));
+    console.log(
+        `📅 Found ${calendars.length} calendars:`,
+        calendars.map(c => c.displayName),
+    );
     return calendars;
 }
