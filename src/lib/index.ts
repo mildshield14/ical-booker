@@ -1,8 +1,8 @@
 // src/lib/index.ts
 export * from './types';
-export { discoverCalendars } from './discover';
-export { getBusyEvents } from './busy';
-export { createBooking } from './book';
+export { discoverCalendars } from './discover.js';
+export { getBusyEvents } from './busy.js';
+export { createBooking } from './book.js';
 
 /**
  * @mildshield14/ical-booker

@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import { createEvent } from 'ics';
-import type { CalDAVCreds, NewEventInput } from './types';
+import type { CalDAVCreds, NewEventInput } from './types.js';
 
 export async function createBooking(
     creds: CalDAVCreds & { calendarURL: string }, // calendarURL = “…/UUID/”

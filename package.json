@@ -13,7 +13,7 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json && tsc-alias",
+    "build": "tsc --emitDeclarationOnly && esbuild src/lib/index.ts --bundle --platform=node --target=node18 --format=esm --outfile=dist/lib/index.js --external:node-fetch --external:node-ical --external:ics --external:rrule --external:dotenv",
     "dev": "tsc --watch & tsc-alias --watch",
     "test": "node --test",
     "test:coverage": "c8 node --test",
@@ -72,6 +72,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "c8": "^8.0.0",
+    "esbuild": "^0.25.5",
     "eslint": "^8.0.0",
     "prettier": "^3.0.0",
     "tsc-alias": "^1.8.16",

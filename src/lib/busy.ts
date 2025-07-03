@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import ical from 'node-ical';
 import pkg from 'rrule';
 const { RRule } = pkg;
-import type { BusyEvent, CalDAVCreds, Calendar } from './types';
+import type { BusyEvent, CalDAVCreds, Calendar } from './types.js';
 
 const fmt = (d: string | Date): string => `${new Date(d).toISOString().replace(/[-:]/g, '').split('.')[0]}Z`;
 

@@ -1,6 +1,6 @@
 // src/lib/discover.ts
 import fetch from 'node-fetch';
-import type { CalDAVCreds, Calendar } from './types';
+import type { CalDAVCreds, Calendar } from './types.js';
 
 /* small helper to build PROPFIND requests */
 const xmlReq = (
