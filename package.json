@@ -12,22 +12,22 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": [
-    "dist/**/*",
-    "README.md",
-    "../Downloads/ical-booker/LICENSE"
-  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc --watch",
     "test": "node --test",
     "test:coverage": "c8 node --test",
-    "lint": "eslint ../Downloads/ical-booker/src/**/*.ts",
-    "lint:fix": "eslint ../Downloads/ical-booker/src/**/*.ts --fix",
-    "format": "prettier --write ../Downloads/ical-booker/src/**/*.ts",
+    "lint": "eslint ./src/**/*.ts",
+    "lint:fix": "eslint ./src/**/*.ts --fix",
+    "format": "prettier --write ./src/**/*.ts",
     "prepublishOnly": "npm run build && npm test",
     "clean": "rm -rf dist"
   },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
   "keywords": [
     "caldav",
     "calendar",
