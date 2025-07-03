@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A lightweight, modern CalDAV client for Node.js - discover calendars, check availability, and create bookings",
   "main": "dist/lib/index.js",
-  "module": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "type": "module",
   "exports": {
