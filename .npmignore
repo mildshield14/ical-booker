@@ -1,0 +1,78 @@
+# Source files (only publish compiled JS)
+src/
+*.ts
+!*.d.ts
+
+# Development files
+.env
+.env.*
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+test/
+tests/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+coverage/
+.nyc_output
+.c8_output
+
+# Build tools
+tsconfig.json
+tsconfig.*.json
+.eslintrc*
+.prettierrc*
+jest.config.*
+webpack.config.*
+rollup.config.*
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+azure-pipelines.yml
+
+# Documentation source
+docs/
+examples/
+demo/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Node.js
+node_modules/
+.npm
+.yarn/
+.pnp/
+.pnp.js
+
+# Misc
+TODO.md
+CHANGELOG.md
+CONTRIBUTING.md

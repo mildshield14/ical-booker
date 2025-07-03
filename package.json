@@ -1,0 +1,88 @@
+{
+  "name": "@mildshield14/ical-booker",
+  "version": "1.0.0",
+  "description": "A lightweight, modern CalDAV client for Node.js - discover calendars, check availability, and create bookings",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "../Downloads/ical-booker/LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc --watch",
+    "test": "node --test",
+    "test:coverage": "c8 node --test",
+    "lint": "eslint ../Downloads/ical-booker/src/**/*.ts",
+    "lint:fix": "eslint ../Downloads/ical-booker/src/**/*.ts --fix",
+    "format": "prettier --write ../Downloads/ical-booker/src/**/*.ts",
+    "prepublishOnly": "npm run build && npm test",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "caldav",
+    "calendar",
+    "scheduling",
+    "availability",
+    "booking",
+    "icloud",
+    "google-calendar",
+    "fastmail",
+    "webdav",
+    "ical",
+    "busy-time",
+    "free-busy",
+    "appointment",
+    "meeting"
+  ],
+  "author": {
+    "name": "mildshield14",
+    "email": "your-email@example.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mildshield14/ical-booker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mildshield14/ical-booker/issues"
+  },
+  "homepage": "https://github.com/mildshield14/ical-booker#readme",
+  "dependencies": {
+    "node-fetch": "^3",
+    "node-ical": "^0.16",
+    "rrule": "^2",
+    "ics": "^3.8",
+    "dotenv": "^17"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "c8": "^8.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0",
+    "vercel": "^34"
+  },
+  "peerDependencies": {
+    "typescript": ">=4.5.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  }
+}
